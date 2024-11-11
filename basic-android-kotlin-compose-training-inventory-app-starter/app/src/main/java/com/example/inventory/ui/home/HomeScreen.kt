@@ -60,7 +60,15 @@ object HomeDestination : NavigationDestination {
 }
 
 /**
- * Entry route for Home screen
+ * Fungsi `HomeScreen` adalah composable utama untuk layar beranda aplikasi.
+ * Fungsi ini menampilkan `TopAppBar` dan `FloatingActionButton` untuk navigasi ke layar lain.
+ *
+ * - `navigateToItemEntry`: Fungsi lambda yang dieksekusi saat FloatingActionButton ditekan,
+ *   bertujuan untuk membuka layar entri item baru.
+ * - `navigateToItemUpdate`: Fungsi lambda yang digunakan untuk membuka layar pembaruan item berdasarkan ID item yang dipilih.
+ *
+ * Pada implementasinya, fungsi ini menggunakan `Scaffold` untuk menyusun komponen utama layar
+ * dan meneruskan `innerPadding` ke `HomeBody`, memastikan padding yang konsisten.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -102,6 +110,13 @@ fun HomeScreen(
     }
 }
 
+/**
+ * Fungsi `HomeBody` bertugas menampilkan daftar item atau pesan "No items" jika daftar kosong.
+ * - `itemList`: Daftar item yang ditampilkan pada layar.
+ * - `onItemClick`: Fungsi yang dipanggil saat item dalam daftar diklik, mengirim ID item yang dipilih.
+ *
+ * Fungsi ini memilih apakah menampilkan teks kosong atau daftar item.
+ */
 @Composable
 private fun HomeBody(
     itemList: List<Item>,
@@ -131,6 +146,14 @@ private fun HomeBody(
     }
 }
 
+/**
+ * Fungsi `InventoryList` bertugas untuk menampilkan daftar item dalam bentuk `LazyColumn`.
+ * Fungsi ini secara efisien memuat item satu per satu saat diperlukan.
+ * - `itemList`: Daftar semua item yang akan dirender.
+ * - `onItemClick`: Fungsi lambda yang dipanggil saat item diklik.
+ *
+ * `LazyColumn` menggunakan daftar `items` untuk mengulangi setiap item dalam `itemList`.
+ */
 @Composable
 private fun InventoryList(
     itemList: List<Item>,
@@ -143,14 +166,22 @@ private fun InventoryList(
         contentPadding = contentPadding
     ) {
         items(items = itemList, key = { it.id }) { item ->
-            InventoryItem(item = item,
+            InventoryItem(
+                item = item,
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.padding_small))
-                    .clickable { onItemClick(item) })
+                    .clickable { onItemClick(item) }
+            )
         }
     }
 }
 
+/**
+ * Fungsi `InventoryItem` bertugas menampilkan informasi singkat tentang item tertentu dalam bentuk kartu.
+ * - `item`: Objek `Item` yang mewakili data dari setiap item yang ditampilkan.
+ *
+ * Kartu ini menampilkan nama, harga yang diformat, dan kuantitas item dalam stok.
+ */
 @Composable
 private fun InventoryItem(
     item: Item, modifier: Modifier = Modifier
@@ -181,33 +212,5 @@ private fun InventoryItem(
                 style = MaterialTheme.typography.titleMedium
             )
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun HomeBodyPreview() {
-    InventoryTheme {
-        HomeBody(listOf(
-            Item(1, "Game", 100.0, 20), Item(2, "Pen", 200.0, 30), Item(3, "TV", 300.0, 50)
-        ), onItemClick = {})
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun HomeBodyEmptyListPreview() {
-    InventoryTheme {
-        HomeBody(listOf(), onItemClick = {})
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun InventoryItemPreview() {
-    InventoryTheme {
-        InventoryItem(
-            Item(1, "Game", 100.0, 20),
-        )
     }
 }

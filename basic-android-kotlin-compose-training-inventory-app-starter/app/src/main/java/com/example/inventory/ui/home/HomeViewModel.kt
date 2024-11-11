@@ -20,7 +20,12 @@ import androidx.lifecycle.ViewModel
 import com.example.inventory.data.Item
 
 /**
- * ViewModel to retrieve all items in the Room database.
+ * ViewModel `HomeViewModel` menyediakan data item dari database Room.
+ * ViewModel ini berperan sebagai penghubung antara lapisan UI dan database,
+ * memastikan bahwa data tetap ada saat layar diputar atau saat konfigurasi berubah.
+ *
+ * - `TIMEOUT_MILLIS`: Konstanta yang mendefinisikan batas waktu untuk operasi database,
+ *   sehingga pengguna diberi informasi jika ada keterlambatan dalam mengambil data.
  */
 class HomeViewModel : ViewModel() {
     companion object {
@@ -29,6 +34,10 @@ class HomeViewModel : ViewModel() {
 }
 
 /**
- * Ui State for HomeScreen
+ * `HomeUiState` adalah kelas data yang merepresentasikan status UI untuk layar beranda.
+ * `itemList` adalah daftar item yang akan ditampilkan dalam UI, defaultnya adalah daftar kosong.
+ *
+ * Ini memungkinkan ViewModel untuk mengirimkan status data secara efisien ke komponen UI,
+ * memisahkan status data dari UI untuk memungkinkan alur data yang lebih bersih.
  */
 data class HomeUiState(val itemList: List<Item> = listOf())
