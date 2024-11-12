@@ -25,23 +25,13 @@ import com.example.inventory.data.ItemsRepository
 import java.text.NumberFormat
 
 /**
- * ViewModel to validate and insert items in the Room database.
- *
- * Mengubah ItemEntryViewModel agar menerima ItemsRepository sebagai dependency,
- * sehingga memungkinkan akses ke data item melalui repository di dalam ViewModel.
+ * Mengubah ItemEntryViewModel agar menerima ItemsRepository sebagai dependency, sehingga,
+ * memungkinkan akses ke data item dengan cara melalui repository di dalam ViewModel.
  */
 class ItemEntryViewModel(private val itemsRepository: ItemsRepository) : ViewModel() {
-
-    /**
-     * Holds current item ui state
-     */
     var itemUiState by mutableStateOf(ItemUiState())
         private set
 
-    /**
-     * Updates the [itemUiState] with the value provided in the argument. This method also triggers
-     * a validation for input values.
-     */
     fun updateUiState(itemDetails: ItemDetails) {
         itemUiState =
             ItemUiState(itemDetails = itemDetails, isEntryValid = validateInput(itemDetails))
@@ -55,7 +45,7 @@ class ItemEntryViewModel(private val itemsRepository: ItemsRepository) : ViewMod
 
     /**
      * Menambahkan fungsi saveItem yang memvalidasi input terlebih dahulu.
-     * Jika valid, maka menyimpan item baru ke dalam repository menggunakan fungsi insertItem.
+     * Jika benar, maka menyimpan item baru ke dalam repository menggunakan fungsi insertItem.
      */
     suspend fun saveItem() {
         if (validateInput()) {

@@ -5,12 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-/**
- * Database class with a singleton Instance object.
+/** @Database(entities = [Item::class], version = 1, exportSchema = false),
+ * digunakan untuk menandai kelas yang akan menjadi database room. lalu abstract class,
+ * pada kelas InventoryDatabase adalah kelas abstrak yang mewarisi dari RoomDatabase yang,
+ * kemudian berfungsi sebagai titik akses utama untuk menyediakan metode untuk mendapatkan DAO,
+ * untuk berinteraksi dengan data di dalam database
  *
- * Mendefinisikan InventoryDatabase sebagai class abstrak yang menggunakan RoomDatabase,
- * dengan ItemDao sebagai akses data untuk mengelola entitas Item, serta menerapkan pola singleton
- * untuk memastikan hanya ada satu instance database yang digunakan.
  */
 @Database(entities = [Item::class], version = 1, exportSchema = false)
 abstract class InventoryDatabase : RoomDatabase() {

@@ -20,13 +20,11 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 
-/**
- * Entity data class represents a single row in the database.
- *
- * Mengubah class Item menjadi data class yang dianotasi dengan @Entity,
- * sehingga Item dapat berfungsi sebagai entitas dalam Room Database
- * dengan tabel bernama "items" dan id sebagai primary key yang di-generate secara otomatis.
- */
+/** @Entity digunakan untuk menandai kelas sebagai entitas dalam ROom Database,
+ * dan akan menjadi tabel di dalam database
+ * lalu @PrimaryKey menandakan bahwa properti tersebut adalah kunci utama yang digunakan,
+ * untuk mengidentifikasi setiap baris data secara unik dalam tabel
+*/
 @Entity(tableName = "items")
 data class Item(
     @PrimaryKey(autoGenerate = true)
