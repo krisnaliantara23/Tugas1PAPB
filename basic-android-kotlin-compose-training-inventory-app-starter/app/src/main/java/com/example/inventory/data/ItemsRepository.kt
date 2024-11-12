@@ -16,15 +16,46 @@
 
 package com.example.inventory.data
 
+import kotlinx.coroutines.flow.Flow
+
 /**
- * ItemsRepository adalah antarmuka (interface) yang menentukan operasi dasar pada data Item,
- * seperti insert, update, delete, dan retrieve. Antarmuka ini memungkinkan penggunaan pola Repository,
- * yang bertindak sebagai lapisan abstraksi antara logika bisnis aplikasi dan lapisan data.
+ * Repository that provides insert, update, delete, and retrieve of [Item] from a given data source.
  *
- * Implementasi dari antarmuka ini dapat berbeda-beda tergantung pada sumber data yang digunakan,
- * misalnya implementasi untuk database lokal menggunakan Room atau sumber data jarak jauh.
- *
- * Penggunaan Repository memungkinkan kode lebih modular dan memudahkan penggantian sumber data
- * tanpa mengubah logika aplikasi yang menggunakan repository.
+ * Mendefinisikan interface ItemsRepository sebagai abstraksi yang berisi fungsi-fungsi untuk mengakses data Item.
  */
-interface ItemsRepository
+interface ItemsRepository {
+    /**
+     * Retrieve all the items from the the given data source.
+     *
+     * Mengambil semua data item.
+     */
+    fun getAllItemsStream(): Flow<List<Item>>
+
+    /**
+     * Retrieve an item from the given data source that matches with the [id].
+     *
+     * Mengambil data item yang sesuai dengan [id].
+     */
+    fun getItemStream(id: Int): Flow<Item?>
+
+    /**
+     * Insert item in the data source
+     *
+     * Menambahkan data item.
+     */
+    suspend fun insertItem(item: Item)
+
+    /**
+     * Delete item from the data source
+     *
+     * Menghapus data item.
+     */
+    suspend fun deleteItem(item: Item)
+
+    /**
+     * Update item in the data source
+     *
+     * Mengupdate data item.
+     */
+    suspend fun updateItem(item: Item)
+}

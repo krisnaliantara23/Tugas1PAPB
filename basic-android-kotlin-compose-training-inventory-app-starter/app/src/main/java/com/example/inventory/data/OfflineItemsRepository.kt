@@ -16,12 +16,21 @@
 
 package com.example.inventory.data
 
+import kotlinx.coroutines.flow.Flow
+
 /**
- * OfflineItemsRepository adalah implementasi dari antarmuka [ItemsRepository].
- * Implementasi ini dirancang untuk mengelola data item secara offline, yang mungkin melibatkan
- * penyimpanan data secara lokal pada perangkat, seperti menggunakan Room sebagai database.
- *
- * Dengan menggunakan [OfflineItemsRepository], aplikasi tetap dapat bekerja meskipun tidak terhubung
- * ke internet, dan operasi CRUD (Create, Read, Update, Delete) pada data item masih dapat dilakukan.
+ * Mengubah OfflineItemsRepository menjadi class yang menerima dependency ItemDao
+ * untuk mengimplementasikan ItemsRepository, sehingga setiap fungsi dalam ItemsRepository
+ * diarahkan ke fungsi-fungsi ItemDao yang sesuai untuk melakukan operasi data.
  */
-class OfflineItemsRepository : ItemsRepository
+class OfflineItemsRepository(private val itemDao: ItemDao) : ItemsRepository {
+    override fun getAllItemsStream(): Flow<List<Item>> = itemDao.getAllItems()
+
+    override fun getItemStream(id: Int): Flow<Item?> = itemDao.getItem(id)
+
+    override suspend fun insertItem(item: Item) = itemDao.insert(item)
+
+    override suspend fun deleteItem(item: Item) = itemDao.delete(item)
+
+    override suspend fun updateItem(item: Item) = itemDao.update(item)
+}
