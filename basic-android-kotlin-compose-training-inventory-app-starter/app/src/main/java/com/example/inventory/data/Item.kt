@@ -16,6 +16,8 @@
 
 package com.example.inventory.data
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 /**
  * Item adalah kelas data yang merepresentasikan satu entri (row) dalam tabel basis data.
  * Kelas ini memiliki atribut-atribut yang merepresentasikan properti dari item di dalam inventaris,
@@ -28,7 +30,9 @@ package com.example.inventory.data
  *
  * Kelas data ini umumnya dipetakan ke tabel dalam database Room, dengan setiap properti menjadi kolom.
  */
+@Entity(tableName = "items")
 data class Item(
+    @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val name: String,
     val price: Double,

@@ -19,25 +19,25 @@ package com.example.inventory.ui.item
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.inventory.data.ItemsRepository
+
 /**
- * ViewModel ini bertanggung jawab untuk mengelola data item tertentu dan berinteraksi dengan [ItemsRepository].
- * Mengambil data item berdasarkan ID yang disediakan untuk ditampilkan dalam `ItemDetailsScreen`.
- * ViewModel ini memanfaatkan `SavedStateHandle` untuk mendapatkan nilai `itemId`
- * yang dipasok melalui argumen navigasi, dan menggunakannya untuk mencari data spesifik dari repository.
- *
- * @param savedStateHandle Menyimpan informasi status untuk mempertahankan data UI
- *                         ketika terjadi perubahan konfigurasi atau aktivitas dijalankan kembali.
+ * ViewModel to retrieve, update and delete an item from the [ItemsRepository]'s data source.
  */
 class ItemDetailsViewModel(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    // Mengambil itemId dari savedStateHandle, yang memungkinkan aplikasi untuk mengakses
-    // item tertentu berdasarkan ID yang diberikan sebagai argumen navigasi.
     private val itemId: Int = checkNotNull(savedStateHandle[ItemDetailsDestination.itemIdArg])
 
     companion object {
-        private const val TIMEOUT_MILLIS = 5_000L // Waktu timeout untuk operasi data asinkron, jika diperlukan.
+        private const val TIMEOUT_MILLIS = 5_000L
     }
 }
 
+/**
+ * UI state for ItemDetailsScreen
+ */
+data class ItemDetailsUiState(
+    val outOfStock: Boolean = true,
+    val itemDetails: ItemDetails = ItemDetails()
+)
