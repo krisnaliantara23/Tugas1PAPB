@@ -39,9 +39,14 @@ object AppViewModelProvider {
                 this.createSavedStateHandle()
             )
         }
+        /**
+         * Mengubah inisialisasi ItemEntryViewModel agar dibuat
+         * dengan menyertakan itemsRepository dari container dalam inventoryApplication,
+         * memungkinkan ViewModel tersebut mengakses repository yang disediakan oleh aplikasi.
+         */
         // Initializer for ItemEntryViewModel
         initializer {
-            ItemEntryViewModel()
+            ItemEntryViewModel(inventoryApplication().container.itemsRepository)
         }
 
         // Initializer for ItemDetailsViewModel

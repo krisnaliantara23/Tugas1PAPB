@@ -8,6 +8,13 @@ import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Mendefinisikan interface ItemDao dengan anotasi @Dao
+ * untuk Room Database yang menyediakan fungsi-fungsi CRUD:
+ * insert, update, dan delete item, serta getItem untuk mendapatkan item berdasarkan id,
+ * dan getAllItems untuk mengambil semua item terurut berdasarkan name secara ascending.
+ */
+@Dao
 interface ItemDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(item: Item)

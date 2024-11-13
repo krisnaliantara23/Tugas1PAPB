@@ -41,19 +41,7 @@ object ItemEditDestination : NavigationDestination {
     const val itemIdArg = "itemId"
     val routeWithArgs = "$route/{$itemIdArg}"
 }
-/**
- * Fungsi utama untuk menampilkan layar edit item. Menampilkan elemen UI yang relevan
- * dengan pengeditan item, seperti field untuk nama, harga, dan kuantitas.
- * Mengambil data item yang diedit dari `ItemEditViewModel` dan mengizinkan pengguna
- * untuk mengubah dan menyimpan data item.
- *
- * @param navigateBack Fungsi navigasi untuk kembali ke layar sebelumnya.
- * @param
- *
- *
- *  onNavigateUp Fungsi navigasi untuk kembali tanpa perubahan.
- * @param viewModel Mengakses ViewModel untuk mendapatkan data item dan menyimpan perubahan.
- */
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ItemEditScreen(
@@ -62,7 +50,6 @@ fun ItemEditScreen(
     modifier: Modifier = Modifier,
     viewModel: ItemEditViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
-    // Scaffold menyediakan struktur dasar layar dengan AppBar
     Scaffold(
         topBar = {
             InventoryTopAppBar(
@@ -73,11 +60,10 @@ fun ItemEditScreen(
         },
         modifier = modifier
     ) { innerPadding ->
-        // Memanggil ItemEntryBody untuk menampilkan field input untuk mengedit detail item
         ItemEntryBody(
             itemUiState = viewModel.itemUiState,
-            onItemValueChange = { /* Fungsi untuk menangani perubahan input */ },
-            onSaveClick = { /* Fungsi untuk menyimpan perubahan */ },
+            onItemValueChange = { },
+            onSaveClick = { },
             modifier = Modifier
                 .padding(
                     start = innerPadding.calculateStartPadding(LocalLayoutDirection.current),
@@ -86,5 +72,13 @@ fun ItemEditScreen(
                 )
                 .verticalScroll(rememberScrollState())
         )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ItemEditScreenPreview() {
+    InventoryTheme {
+        ItemEditScreen(navigateBack = { /*Do nothing*/ }, onNavigateUp = { /*Do nothing*/ })
     }
 }

@@ -22,33 +22,22 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.inventory.data.ItemsRepository
+
 /**
- * ViewModel ini bertanggung jawab untuk mengelola dan memperbarui data item yang akan diedit.
- * Berinteraksi dengan `ItemsRepository` untuk menyimpan perubahan yang dilakukan pengguna.
- * `SavedStateHandle` digunakan untuk mendapatkan `itemId`, memastikan ViewModel mengakses data item
- * yang sesuai, baik untuk menampilkan data awal maupun untuk menyimpan perubahan yang diperbarui.
+ * ViewModel to retrieve and update an item from the [ItemsRepository]'s data source.
  */
 class ItemEditViewModel(
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
     /**
-     * Menyimpan status UI item saat ini untuk pengeditan.
-     * Status ini memungkinkan UI untuk merender tampilan item dan memantau perubahan yang terjadi pada input.
+     * Holds current item ui state
      */
     var itemUiState by mutableStateOf(ItemUiState())
         private set
 
-    // Mendapatkan ID item dari savedStateHandle yang dikirim melalui argumen navigasi.
     private val itemId: Int = checkNotNull(savedStateHandle[ItemEditDestination.itemIdArg])
 
-    /**
-     * Fungsi ini melakukan validasi terhadap input pengguna sebelum data disimpan.
-     * Mengecek apakah semua field yang diperlukan telah terisi.
-     *
-     * @param uiState Berisi data detail item yang sedang diedit.
-     * @return Boolean true jika semua field tidak kosong, false jika ada field yang kosong.
-     */
     private fun validateInput(uiState: ItemDetails = itemUiState.itemDetails): Boolean {
         return with(uiState) {
             name.isNotBlank() && price.isNotBlank() && quantity.isNotBlank()

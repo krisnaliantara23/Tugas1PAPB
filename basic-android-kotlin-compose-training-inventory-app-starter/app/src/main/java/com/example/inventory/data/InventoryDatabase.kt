@@ -1,12 +1,16 @@
+package com.example.inventory.data
+
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.inventory.data.Item
-import com.example.inventory.data.ItemDao
 
 /**
  * Database class with a singleton Instance object.
+ *
+ * Mendefinisikan InventoryDatabase sebagai class abstrak yang menggunakan RoomDatabase,
+ * dengan ItemDao sebagai akses data untuk mengelola entitas Item, serta menerapkan pola singleton
+ * untuk memastikan hanya ada satu instance database yang digunakan.
  */
 @Database(entities = [Item::class], version = 1, exportSchema = false)
 abstract class InventoryDatabase : RoomDatabase() {
